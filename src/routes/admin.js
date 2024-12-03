@@ -1,10 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const controller = require('../controllers/admin_controller')
 
-// GET home page.
-router.get("/", function (req, res) {
-  res.send("hello from admin page");
-});
+router.get('/', controller.getHome)
 
 // Export the router
 module.exports = router;
