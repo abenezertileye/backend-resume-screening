@@ -2,10 +2,18 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const applicationSchema = new Schema({
-  data: { type: Array, required: true, maxLength: 100 },
-  application_date: {type: Date}
+const ApplicationSchema = new Schema({
+  jobPost: { type: mongoose.Schema.Types.ObjectId, ref: "JobPost", required: true }, // Link to JobPost
+  filledData: [
+    {
+      fieldName: { type: String, required: true }, // Name of the form field
+      value: { type: Schema.Types.Mixed, required: true }, // Value entered by the applicant
+    },
+  ],
+  userIdentifier: { type: String, required: true }, // Unique identifier for the user
+  resume: { type: String }, // Path to the uploaded resume
+
 });
 
 // Export model
-module.exports = mongoose.model("application", applicationSchema);
+module.exports = mongoose.model("Application", ApplicationSchema);

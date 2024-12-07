@@ -30,7 +30,7 @@ app.use('/admin-auth', adminAuthRoute)
 
 
 // Set up mongoose connection
-const mongoDB = "mongodb://localhost:27017/mydb";
+const mongoDB = "mongodb://localhost:27017/resume_screening_db";
 
 main().catch((err) => console.log(err));
 

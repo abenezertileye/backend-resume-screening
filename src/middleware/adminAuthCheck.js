@@ -10,11 +10,12 @@ const adminAuthCheck = (req, res, next) => {
         try{
             token = req.headers.authorization.split(" ")[1]
             jwt.verify(token, 'osjcosj56as', (err, decodedToken) => {
-                
                 if(err){
                     res.send(err)
                 } else {
                     req.admin = decodedToken
+                    req.user = { id: decodedToken.id };
+
                     next()
                 }
             })
