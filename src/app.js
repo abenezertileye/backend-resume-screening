@@ -4,7 +4,13 @@ const mongoose = require("mongoose");
 const path = require('path')
 const { validationResult } = require("express-validator");
 const {adminAuthCheck} = require('./middleware/adminAuthCheck')
+const cors = require("cors");
 
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'], // Allow all HTTP methods
+  credentials: true, // Allow credentials (cookies, etc.)
+}));
 
 var userRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");
