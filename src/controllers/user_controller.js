@@ -61,6 +61,7 @@ exports.createApplication = async (req, res) => {
       const resumeDestination = path.join(
         __dirname,
         "..",
+        "..",
         "uploads",
         resumeName
       );

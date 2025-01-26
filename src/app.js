@@ -1,11 +1,20 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors");
 const path = require("path");
 const { validationResult } = require("express-validator");
 const { adminAuthCheck } = require("./middleware/adminAuthCheck");
-const cors = require("cors");
 
+// Import routes
+const userRouter = require("./routes/users");
+const adminRouter = require("./routes/admin");
+const adminAuthRoute = require("./routes/adminAuthRoute");
+const resumeRouter = require("./routes/resume"); // Import resume route
+
+const port = 3000;
+
+// Middleware for CORS
 app.use(
   cors({
     origin: "*", // Allow all origins
@@ -14,12 +23,7 @@ app.use(
   })
 );
 
-var userRouter = require("./routes/users");
-var adminRouter = require("./routes/admin");
-var adminAuthRoute = require("./routes/adminAuthRoute");
-
-const port = 3000;
-
+// Validation middleware
 const validationMiddleware = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -28,13 +32,19 @@ const validationMiddleware = (req, res, next) => {
   next();
 };
 
+// Middleware for parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(validationMiddleware); // Your express-validator middleware
 
+// Static files (if needed)
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve uploaded files
+
+// Routes
 app.use("/admin", adminAuthCheck, adminRouter);
 app.use("/users", userRouter);
 app.use("/admin-auth", adminAuthRoute);
+app.use("/api/resumes", resumeRouter); // Add resume routes
 
 // Set up mongoose connection
 const mongoDB = "mongodb://localhost:27017/resume_screening_db";
