@@ -10,7 +10,6 @@ if (!fs.existsSync(uploadDirectory)) {
   fs.mkdirSync(uploadDirectory, { recursive: true }); // Create the 'uploads/resumes' folder
 }
 
-// Configure multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Store the uploaded file in the 'uploads' folder
@@ -18,7 +17,10 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     // Use a timestamp to avoid filename conflicts
-    cb(null, `${req.body.userIdentifier}_resume_${Date.now()}_${file.originalname}`);
+    cb(
+      null,
+      `${req.body.userIdentifier}_resume_${Date.now()}_${file.originalname}`
+    );
   },
 });
 

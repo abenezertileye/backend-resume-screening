@@ -14,9 +14,9 @@ async function processResumes(resumes, jobDescription, requiredExperience) {
   } catch (error) {
     console.error("Error communicating with the ML server:", error.message);
 
-    // Provide detailed error handling for debugging
+    // error handling for debugging
     if (error.response) {
-      // Server responded with a status other than 2xx
+      // Server responded with a status other than 2
       console.error("Response data:", error.response.data);
       console.error("Response status:", error.response.status);
     } else if (error.request) {

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const upload = require("../middleware/file_upload_conf"); // File upload middleware
+const upload = require("../middleware/file_upload_conf");
 const fs = require("fs");
 const { processResumes } = require("../controllers/ml_service"); // Use ml_service.js
 

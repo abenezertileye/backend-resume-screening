@@ -19,7 +19,7 @@ app.use(
   cors({
     origin: "*", // Allow all origins
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"], // Allow all HTTP methods
-    credentials: true, // Allow credentials (cookies, etc.)
+    credentials: true,
   })
 );
 
@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(validationMiddleware); // Your express-validator middleware
 
-// Static files (if needed)
+// Static files
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve uploaded files
 
 // Routes
