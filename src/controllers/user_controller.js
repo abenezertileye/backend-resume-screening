@@ -6,7 +6,7 @@ const fs = require("fs"); // F
 exports.getAllPosts = async (req, res) => {
   try {
     // Retrieve all JobPost documents from the database
-    const posts = await JobPost.find().select("-applications");
+    const posts = await JobPost.find().populate("applications");
 
     // Send the retrieved posts as the response
     res.status(200).json({
@@ -26,10 +26,14 @@ exports.getAllPosts = async (req, res) => {
 };
 
 exports.createApplication = async (req, res) => {
+  console.log("entered");
   const { id } = req.params; // Job post ID
+  console.log("idd:", id);
   const { filledData, userIdentifier } = req.body; // Form data and user identifier
   const resume = req.file; // Assuming you use something like 'multer' to handle the file upload
   const parsedFilledData = JSON.parse(filledData);
+  console.log("filledData", filledData);
+  console.log("userIdentifier", userIdentifier);
 
   try {
     const jobPost = await JobPost.findById(id);
@@ -60,7 +64,6 @@ exports.createApplication = async (req, res) => {
       )}`;
       const resumeDestination = path.join(
         __dirname,
-        "..",
         "..",
         "uploads",
         resumeName

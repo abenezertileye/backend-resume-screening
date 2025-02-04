@@ -5,7 +5,8 @@ const Schema = mongoose.Schema;
 const JobPost = new Schema(
   {
     title: { type: String, required: true, maxLength: 100 },
-    description: { type: String, maxLength: 100 },
+    description: { type: String, maxLength: 1000 },
+    requiredExperience: { type: Number, maxLength: 100 },
     forms: [
       {
         name: { type: Schema.Types.Mixed, required: true }, // Field name
